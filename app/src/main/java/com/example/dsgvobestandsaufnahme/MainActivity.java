@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     private NoSwipePager viewPager;
     private BottomBarAdapter pagerAdapter;
-    private BottomNavigationView bottomNavigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
