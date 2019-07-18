@@ -6,27 +6,36 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextMessage;
+
+    private NoSwipePager viewPager;
+    private BottomBarAdapter pagerAdapter;
+    private BottomNavigationView bottomNavigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Log.d(MainActivity.class.getSimpleName(), item + "");
+
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_new:
+                    viewPager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_open:
+                    viewPager.setCurrentItem(1);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_sync:
+                    viewPager.setCurrentItem(2);
                     return true;
             }
             return false;
@@ -38,8 +47,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //Set up View Pager
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setPagingEnabled(false);
+
+        //Initialize PagerAdapter
+        pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
+
+        //Create Fragments and add them to the Adapter
+        NewFragment fragmentNew = new NewFragment();
+        OpenFragment fragmentOpen = new OpenFragment();
+        SyncFragment fragmentSync = new SyncFragment();
+        pagerAdapter.addFragements(fragmentNew);
+        pagerAdapter.addFragements(fragmentOpen);
+        pagerAdapter.addFragements(fragmentSync);
+
+        //Set View Pager Adapter
+        viewPager.setAdapter(pagerAdapter);
+
     }
 
 }
