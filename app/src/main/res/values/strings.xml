@@ -11,4 +11,20 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
+
+    <string-array name="survey_titles">
+        <item>DSGVO Bestandsaufnahme</item>
+        <item>NLI Grillfleisch</item>
+    </string-array>
+
+    <string-array name="survey_description">
+        <item>Diese Bestandsaufnahme muss als Grundlage für imsBase durchgeführt werden!</item>
+        <item>Wählt hier aus welches Fleich ihr Essen wollt.</item>
+    </string-array>
+
+    <array name="survey_images">
+        <item>@drawable/examplebanner</item>
+        <item>@drawable/fire</item>
+    </array>
+
 </resources>

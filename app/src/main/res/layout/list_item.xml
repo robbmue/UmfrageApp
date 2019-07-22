@@ -2,26 +2,30 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content">
-
-    <ImageView
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:id="@+id/pic"/>
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/title"
         android:layout_alignBottom="@id/pic"
-        android:text="@string/name"
         android:padding="8dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+        android:text="@string/name"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <TextView
         android:layout_width="wrap_content"

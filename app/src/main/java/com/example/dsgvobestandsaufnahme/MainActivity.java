@@ -1,22 +1,22 @@
 package com.example.dsgvobestandsaufnahme;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
-
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private NoSwipePager viewPager;
     private BottomBarAdapter pagerAdapter;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         //Set View Pager Adapter
         viewPager.setAdapter(pagerAdapter);
 
+
     }
+
+
 
 }
