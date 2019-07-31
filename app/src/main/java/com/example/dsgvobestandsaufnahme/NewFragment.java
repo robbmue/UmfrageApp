@@ -52,28 +52,8 @@ public class NewFragment extends Fragment {
                 surveyAdapter.setSurveyData(surveys);
             }
         });
-        //initializeData();
         return rootView;
     }
 
-    /*
-    private void initializeData() {
-        // Get the resources from the XML file.
-        String [] surveyList = getResources().getStringArray(R.array.survey_titles);
-        String [] surveyDescriptions = getResources().getStringArray(R.array.survey_description);
-        TypedArray surveyImages = getResources().obtainTypedArray(R.array.survey_images);
-
-        // Clear the existing data (to avoid duplication).
-        surveys.clear();
-
-        for (int i = 0; i < surveyList.length; i++) {
-            surveys.add(new Survey(surveyList[i], surveyDescriptions[i], surveyImages.getResourceId(i,0)));
-        }
-
-        surveyImages.recycle();
-
-        surveyAdapter.notifyDataSetChanged();
-    }
-    */
 
 }

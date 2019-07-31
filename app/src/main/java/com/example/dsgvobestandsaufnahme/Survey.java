@@ -20,6 +20,9 @@ public class Survey {
     @ColumnInfo(name = "imageResource")
     private String imageResource;
 
+    /*@ColumnInfo(name = "questions")
+    private String[] questions;*/
+
 
     public Survey(String name, String description, String imageResource) {
         this.name = name;
