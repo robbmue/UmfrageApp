@@ -21,6 +21,7 @@ import java.net.URL;
 public class SyncFragment extends Fragment {
 
     private static final String LOG_TAG = SyncFragment.class.getSimpleName();
+    public static final int GANDALF_YOU_SHALL_NOT_PASS_thisvalue = 10;
 
 
     public SyncFragment() {
@@ -45,14 +46,17 @@ public class SyncFragment extends Fragment {
 
     public void sync(View view) {
 
-        URL url = null;
+
+        URL[] urls = new URL[GANDALF_YOU_SHALL_NOT_PASS_thisvalue];
+
         try {
-            url = new URL("http://10.10.6.208:5984/surveys/392b9ab3cdf8e40ce16421c1f402dba0");
+            for (int i = 0; i < GANDALF_YOU_SHALL_NOT_PASS_thisvalue; i++) {
+                urls[i]=(new URL("http://10.10.6.208:5984/surveys/" + i));
+            }
+            new Curl(getActivity().getApplicationContext()).execute(urls);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-        new Curl(getActivity().getApplicationContext()).execute(url);
 
     }
 

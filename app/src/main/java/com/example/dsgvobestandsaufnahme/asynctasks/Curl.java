@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.LinkedList;
 
 public class Curl extends AsyncTask<URL, Integer, String> {
 
@@ -34,6 +35,7 @@ public class Curl extends AsyncTask<URL, Integer, String> {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
                 for (String line; (line = reader.readLine()) != null; ) {
                     builder.append(line);
+                    builder.append("HIERTRENNEN");
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -48,11 +50,26 @@ public class Curl extends AsyncTask<URL, Integer, String> {
 
     @Override
     protected void onPostExecute(String s) {
+
+        String[] array = s.split("HIERTRENNEN");
+
         try {
-            JSONObject json = new JSONObject(s);
-            Survey[] surveys = {new Survey(json.getString("title"), json.getString("description"),json.getString("pic"))};
+
+            LinkedList<JSONObject> jsons = new LinkedList<>();
+            for (String obj : array
+            ) {
+                jsons.addLast(new JSONObject(obj));
+            }
+
+            LinkedList<Survey> surveys = new LinkedList<>();
+            for (JSONObject obj :
+                    jsons) {
+                surveys.addLast(new Survey(obj.getString("title"), obj.getString("description"), obj.getString("pic")));
+            }
+
             Log.d(LOG_TAG, "JSON is fucking awesome *-*");
-            new PopulateDbAsync(context, SurveyRoomDatabase.getDatabase(context), surveys).execute();
+            new PopulateDbAsync(SurveyRoomDatabase.getDatabase(context), surveys.toArray(new Survey[surveys.size()])).execute();
+
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(LOG_TAG, "JSON sucks");
