@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.dsgvobestandsaufnahme.asynctasks.PopulateDbAsync;
 
-@Database(entities = {Survey.class}, version = 1, exportSchema = false)
+@Database(entities = {Survey.class}, version = 2, exportSchema = false)
 public abstract class SurveyRoomDatabase extends RoomDatabase {
 
     public abstract SurveyDao surveyDao();
@@ -23,6 +23,7 @@ public abstract class SurveyRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             SurveyRoomDatabase.class, "survey_database")
                             .addCallback(sRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

@@ -1,6 +1,9 @@
 package com.example.dsgvobestandsaufnahme;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -72,7 +73,9 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
         void bindTo(Survey curretnSurvey){
             tvTitle.setText(curretnSurvey.getName());
             tvDescriptio.setText(curretnSurvey.getDescription());
-            if (context != null) Glide.with(context).load(curretnSurvey.getImageResource()).into(ivSurvey);
+            byte[] decodedString = Base64.decode(curretnSurvey.getImageResource(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ivSurvey.setImageBitmap(decodedByte);
         }
     }
 

@@ -1,7 +1,6 @@
 package com.example.dsgvobestandsaufnahme;
 
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +56,7 @@ public class NewFragment extends Fragment {
         return rootView;
     }
 
+    /*
     private void initializeData() {
         // Get the resources from the XML file.
         String [] surveyList = getResources().getStringArray(R.array.survey_titles);
@@ -74,5 +74,6 @@ public class NewFragment extends Fragment {
 
         surveyAdapter.notifyDataSetChanged();
     }
+    */
 
 }

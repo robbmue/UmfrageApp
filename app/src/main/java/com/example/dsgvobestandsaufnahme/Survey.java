@@ -18,16 +18,14 @@ public class Survey {
     private String description;
 
     @ColumnInfo(name = "imageResource")
-    private int imageResource;
+    private String imageResource;
 
 
-    public Survey(String name, String description, int imageResource) {
+    public Survey(String name, String description, String imageResource) {
         this.name = name;
         this.description = description;
         this.imageResource = imageResource;
-
     }
-
 
 
     public String getName() {
@@ -38,7 +36,7 @@ public class Survey {
         return description;
     }
 
-    public int getImageResource() {
+    public String getImageResource() {
         return imageResource;
     }
 
@@ -51,7 +49,7 @@ public class Survey {
         this.description = description;
     }
 
-    public void setImageResource(int imageResource) {
+    public void setImageResource(String imageResource) {
         this.imageResource = imageResource;
     }
 

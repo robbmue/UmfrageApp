@@ -47,12 +47,12 @@ public class SyncFragment extends Fragment {
 
         URL url = null;
         try {
-            url = new URL("http://10.10.6.208:5984");
+            url = new URL("http://10.10.6.208:5984/surveys/392b9ab3cdf8e40ce16421c1f402dba0");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        new Curl().execute(url);
+        new Curl(getActivity().getApplicationContext()).execute(url);
 
     }
 
