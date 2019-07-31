@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,6 +25,7 @@ public class NewFragment extends Fragment {
     private ArrayList<Survey> surveys;
     private RecyclerView surveyRecyclerView;
     private SurveyAdapter surveyAdapter;
+    private SurveyViewModel surveyViewModel;
 
     public NewFragment() {
         // Required empty public constructor
@@ -40,9 +44,16 @@ public class NewFragment extends Fragment {
         surveyRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         surveyRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         surveys = new ArrayList<>();
-        surveyAdapter = new SurveyAdapter(getActivity(), surveys);
+        surveyAdapter = new SurveyAdapter(getActivity());
         surveyRecyclerView.setAdapter(surveyAdapter);
-        initializeData();
+        surveyViewModel = ViewModelProviders.of(this).get(SurveyViewModel.class);
+        surveyViewModel.getAllSurveys().observe(this, new Observer<List<Survey>>() {
+            @Override
+            public void onChanged(List<Survey> surveys) {
+                surveyAdapter.setSurveyData(surveys);
+            }
+        });
+        //initializeData();
         return rootView;
     }
 
