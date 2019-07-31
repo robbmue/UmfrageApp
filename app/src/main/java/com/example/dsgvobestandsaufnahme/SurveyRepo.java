@@ -1,9 +1,10 @@
 package com.example.dsgvobestandsaufnahme;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.dsgvobestandsaufnahme.asynctasks.insertAsyncTask;
 
 import java.util.List;
 
@@ -26,18 +27,4 @@ public class SurveyRepo {
         new insertAsyncTask(surveyDao).execute(survey);
     }
 
-    private static class  insertAsyncTask extends AsyncTask<Survey, Void, Void>{
-
-        private SurveyDao asyncTaskDao;
-
-        insertAsyncTask(SurveyDao dao){
-            asyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Survey... surveys) {
-            asyncTaskDao.insert(surveys[0]);
-            return null;
-        }
-    }
 }
