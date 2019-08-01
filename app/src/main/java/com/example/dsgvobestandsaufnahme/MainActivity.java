@@ -6,16 +6,13 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
-    private NoSwipePager viewPager;
-    private BottomBarAdapter pagerAdapter;
+    private static NoSwipePager viewPager;
+    private static BottomBarAdapter pagerAdapter;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -66,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
         //Set View Pager Adapter
         viewPager.setAdapter(pagerAdapter);
 
-
     }
 
+    public static void openSurvey(QuestionFragment newFrag){
+        pagerAdapter.addFragements(newFrag);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(3);
 
+    }
 
 }

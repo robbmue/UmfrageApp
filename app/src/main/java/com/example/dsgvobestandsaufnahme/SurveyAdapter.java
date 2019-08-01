@@ -70,12 +70,26 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
 
         }
 
-        void bindTo(Survey curretnSurvey){
+        void bindTo(final Survey curretnSurvey){
             tvTitle.setText(curretnSurvey.getName());
             tvDescriptio.setText(curretnSurvey.getDescription());
             byte[] decodedString = Base64.decode(curretnSurvey.getImageResource(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             ivSurvey.setImageBitmap(decodedByte);
+            ivSurvey.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    QuestionFragment newFrag = new QuestionFragment(curretnSurvey);
+                    MainActivity.openSurvey(newFrag);
+                    /*
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.viewPager, newFrag)
+                            .addToBackStack(null)
+                            .commit();*/
+                }
+            });
         }
     }
 

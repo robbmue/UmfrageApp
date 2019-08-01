@@ -1,10 +1,15 @@
 package com.example.dsgvobestandsaufnahme;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 @Entity(tableName = "survey_table")
 public class Survey {
@@ -20,14 +25,22 @@ public class Survey {
     @ColumnInfo(name = "imageResource")
     private String imageResource;
 
-    /*@ColumnInfo(name = "questions")
-    private String[] questions;*/
+    @ColumnInfo(name = "questions")
+    private Question[] questions;
 
 
     public Survey(String name, String description, String imageResource) {
         this.name = name;
         this.description = description;
         this.imageResource = imageResource;
+    }
+
+    public Survey(String title, String description, String pic, JSONArray questions) throws JSONException {
+        this.name = title;
+        this.description = description;
+        this.imageResource = pic;
+        Log.d(getClass().getSimpleName(), questions.getString(0));
+
     }
 
 
