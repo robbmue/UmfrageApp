@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public static void openSurvey(QuestionFragment newFrag){
         pagerAdapter.addFragements(newFrag);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(3);
+        viewPager.setCurrentItem(pagerAdapter.getCount());
 
     }
 
