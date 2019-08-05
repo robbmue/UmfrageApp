@@ -1,5 +1,7 @@
 package com.example.dsgvobestandsaufnahme;
 
+import android.util.Log;
+
 import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
@@ -11,7 +13,9 @@ import java.util.ArrayList;
 public class Converters {
     @TypeConverter
     public static ArrayList<Question> fromString(String value){
-        Type listType = new TypeToken<ArrayList<String>>(){}.getType();
+        Log.d(Converters.class.getSimpleName(), value);
+        Type listType = new TypeToken<ArrayList<Question>>(){}.getType();
+        Log.d(Converters.class.getSimpleName(), listType.toString());
         return new Gson().fromJson(value, listType);
     }
 
