@@ -10,6 +10,9 @@ import androidx.room.PrimaryKey;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 @Entity(tableName = "survey_table")
 public class Survey {
@@ -19,6 +22,7 @@ public class Survey {
     @ColumnInfo(name = "name")
     private String name;
 
+
     @ColumnInfo(name = "description")
     private String description;
 
@@ -26,7 +30,7 @@ public class Survey {
     private String imageResource;
 
     @ColumnInfo(name = "questions")
-    private Question[] questions;
+    private ArrayList<Question> questions;
 
 
     public Survey(String name, String description, String imageResource) {
@@ -39,8 +43,12 @@ public class Survey {
         this.name = title;
         this.description = description;
         this.imageResource = pic;
-        Log.d(getClass().getSimpleName(), questions.getString(0));
-
+        this.questions = new ArrayList<>();
+        for (int i = 0; i < questions.length(); i++) {
+            JSONObject obj = questions.getJSONObject(i);
+            this.questions.add(new Question(obj.getInt("id"), obj.getBoolean("yn"), obj.getString("question")));
+            Log.d(getClass().getSimpleName(), questions.get(i).toString());
+        }
     }
 
 
@@ -69,4 +77,11 @@ public class Survey {
         this.imageResource = imageResource;
     }
 
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
 }

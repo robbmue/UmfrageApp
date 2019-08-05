@@ -6,11 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.dsgvobestandsaufnahme.asynctasks.PopulateDbAsync;
 
-@Database(entities = {Survey.class}, version = 2, exportSchema = false)
+@Database(entities = {Survey.class}, version = 3, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class SurveyRoomDatabase extends RoomDatabase {
 
     public abstract SurveyDao surveyDao();

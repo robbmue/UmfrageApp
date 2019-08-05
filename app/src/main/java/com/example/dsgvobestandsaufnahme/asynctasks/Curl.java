@@ -64,6 +64,7 @@ public class Curl extends AsyncTask<URL, Integer, String> {
             LinkedList<Survey> surveys = new LinkedList<>();
             for (JSONObject obj :
                     jsons) {
+                Log.d(LOG_TAG, obj.get("questions").toString());
                 surveys.addLast(new Survey(obj.getString("title"), obj.getString("description"), obj.getString("pic"), obj.getJSONArray("questions")));
             }
 
