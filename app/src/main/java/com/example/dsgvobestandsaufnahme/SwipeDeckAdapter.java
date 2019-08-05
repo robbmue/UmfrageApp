@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.List;
 
 public class SwipeDeckAdapter extends BaseAdapter {
@@ -48,8 +46,6 @@ public class SwipeDeckAdapter extends BaseAdapter {
         }
         ((TextView) v.findViewById(R.id.textView2)).setText(questions.get(position).getQuestion());
         ((TextView) v.findViewById(R.id.textView)).setText((questions.get(position).getId()+1) + "/" + questions.size());
-        if (questions.get(position).isYn()) ((TextInputEditText) v.findViewById(R.id.input)).setVisibility(View.GONE);
-        else ((TextInputEditText) v.findViewById(R.id.input)).setVisibility(View.VISIBLE);
 
 
         v.setOnClickListener(new View.OnClickListener() {

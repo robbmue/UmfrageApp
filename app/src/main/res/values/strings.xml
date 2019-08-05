@@ -12,6 +12,7 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="synchronize">Synchronize</string>
+    <string name="bitte_antwort_eingeben">Bitte Antwort eingeben.</string>
     <!--
     <string-array name="survey_titles">
         <item>DSGVO Bestandsaufnahme</item>
