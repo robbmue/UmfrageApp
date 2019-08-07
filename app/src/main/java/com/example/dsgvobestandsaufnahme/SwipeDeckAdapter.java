@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -46,6 +48,13 @@ public class SwipeDeckAdapter extends BaseAdapter {
         }
         ((TextView) v.findViewById(R.id.textView2)).setText(questions.get(position).getQuestion());
         ((TextView) v.findViewById(R.id.textView)).setText((questions.get(position).getId()+1) + "/" + questions.size());
+        if (!questions.get(position).isYn()){
+            LinearLayout layout = v.findViewById(R.id.linla);
+            EditText input = new EditText(context);
+            input.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+            input.setSingleLine(false);
+            layout.addView(input);
+        }
 
 
         v.setOnClickListener(new View.OnClickListener() {

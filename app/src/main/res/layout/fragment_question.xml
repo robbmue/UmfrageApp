@@ -37,4 +37,5 @@
         swipedeck:backgroundTint="@color/colorPrimary" />
 
 
+
 </com.daprlabs.cardstack.SwipeFrameLayout>
