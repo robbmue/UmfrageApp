@@ -69,7 +69,7 @@ public class Curl extends AsyncTask<URL, Integer, String> {
             }
 
             Log.d(LOG_TAG, "JSON is fucking awesome *-*");
-            new PopulateDbAsync(SurveyRoomDatabase.getDatabase(context), surveys.toArray(new Survey[surveys.size()])).execute();
+            new SyncDbAsync(SurveyRoomDatabase.getDatabase(context), surveys.toArray(new Survey[surveys.size()])).execute();
 
         } catch (JSONException e) {
             e.printStackTrace();

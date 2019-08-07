@@ -1,6 +1,7 @@
 package com.example.dsgvobestandsaufnahme;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class NewFragment extends Fragment {
 
-    private ArrayList<Survey> surveys;
+    private List<Survey> surveys;
     private RecyclerView surveyRecyclerView;
     private SurveyAdapter surveyAdapter;
     private SurveyViewModel surveyViewModel;
@@ -46,13 +47,29 @@ public class NewFragment extends Fragment {
         surveyAdapter = new SurveyAdapter(getActivity());
         surveyRecyclerView.setAdapter(surveyAdapter);
         surveyViewModel = ViewModelProviders.of(this).get(SurveyViewModel.class);
+        surveys = surveyViewModel.getAllSurveys().getValue();
         surveyViewModel.getAllSurveys().observe(this, new Observer<List<Survey>>() {
             @Override
             public void onChanged(List<Survey> surveys) {
                 surveyAdapter.setSurveyData(surveys);
             }
         });
+        getSurveys();
         return rootView;
+    }
+
+    private void getSurveys(){
+        class GetSurveys extends AsyncTask<Void, Void, List<Survey>>{
+
+            @Override
+            protected List<Survey> doInBackground(Void... voids) {
+                List<Survey> surveyList = SurveyRoomDatabase.getDatabase(getContext()).surveyDao().getAllSurveys().getValue();
+                return surveyList;
+            }
+        }
+
+        GetSurveys gs = new GetSurveys();
+        gs.execute();
     }
 
 

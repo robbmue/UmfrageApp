@@ -7,19 +7,24 @@ import com.example.dsgvobestandsaufnahme.Survey;
 import com.example.dsgvobestandsaufnahme.SurveyDao;
 import com.example.dsgvobestandsaufnahme.SurveyRoomDatabase;
 
-public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+public class SyncDbAsync extends AsyncTask<Void, Void, Void> {
 
     private final SurveyDao dao;
     Survey[] surveys;
 
+    public SyncDbAsync(SurveyRoomDatabase db, Survey[] surveys) {
+        this.dao = db.surveyDao();
+        this.surveys = surveys;
+    }
 
-    public PopulateDbAsync(SurveyRoomDatabase db) {
+
+    public SyncDbAsync(SurveyRoomDatabase db) {
         this.dao = db.surveyDao();
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //dao.deleteAll();
+        dao.deleteAll();
         if (surveys != null) {
             Log.d(this.getClass().getSimpleName(), surveys[0].getName());
             for (Survey survey :
