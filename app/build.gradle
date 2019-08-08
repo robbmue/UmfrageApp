@@ -41,5 +41,5 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 
     // tinder style card view
-    compile 'com.daprlabs.aaron:cardstack:0.3.1-beta0'
+    implementation 'com.daprlabs.aaron:cardstack:0.3.1-beta0'
 }
