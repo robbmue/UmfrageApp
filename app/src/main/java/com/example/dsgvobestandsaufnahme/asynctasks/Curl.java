@@ -19,7 +19,6 @@ import java.util.LinkedList;
 
 public class Curl extends AsyncTask<URL, Integer, String> {
 
-    private String output;
     public final String LOG_TAG = Curl.class.getSimpleName();
     private Context context;
 
@@ -52,8 +51,6 @@ public class Curl extends AsyncTask<URL, Integer, String> {
     protected void onPostExecute(String s) {
 
         String[] array = s.split("HIERTRENNEN");
-        Log.d(LOG_TAG, "-----------------------------------------------------------------------CURL Post execute");
-
         try {
 
             LinkedList<JSONObject> jsons = new LinkedList<>();

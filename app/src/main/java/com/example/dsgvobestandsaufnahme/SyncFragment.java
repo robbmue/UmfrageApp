@@ -23,7 +23,6 @@ public class SyncFragment extends Fragment {
     private static final String LOG_TAG = SyncFragment.class.getSimpleName();
     public static final int GANDALF_YOU_SHALL_NOT_PASS_thisvalue = 10;
 
-
     public SyncFragment() {
         // Required empty public constructor
     }
@@ -59,5 +58,6 @@ public class SyncFragment extends Fragment {
         }
 
     }
+
 
 }
