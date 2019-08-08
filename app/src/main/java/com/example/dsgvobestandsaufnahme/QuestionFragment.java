@@ -22,6 +22,8 @@ public class QuestionFragment extends Fragment {
     private SwipeDeck cardStack;
     private FloatingActionButton fabYes;
     private FloatingActionButton fabNo;
+    private FloatingActionButton fabBACK;
+    private int previousposition;
     public static final String LOG_TAG = QuestionFragment.class.getSimpleName();
 
     public QuestionFragment(Survey survey) {
@@ -38,17 +40,20 @@ public class QuestionFragment extends Fragment {
         cardStack = rootView.findViewById(R.id.swipe_deck);
         fabYes = rootView.findViewById(R.id.fabYES);
         fabNo = rootView.findViewById(R.id.fabNO);
+        fabBACK = rootView.findViewById(R.id.fabBACK);
 
         final SwipeDeckAdapter adapter = new SwipeDeckAdapter(survey.getQuestions(), getActivity().getApplicationContext());
         cardStack.setAdapter(adapter);
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
+                previousposition = position;
                 Log.d(LOG_TAG, "card was swiped left, position in adapter: " + position);
             }
 
             @Override
             public void cardSwipedRight(int position) {
+                previousposition = position;
                 Log.d(LOG_TAG ,"card was swiped right, position in adapter: " + position);
             }
 
@@ -69,7 +74,6 @@ public class QuestionFragment extends Fragment {
         });
 
 
-
         fabNo.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -83,6 +87,13 @@ public class QuestionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 cardStack.swipeTopCardRight(400);
+            }
+        });
+
+        fabBACK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardStack.setSelection(previousposition);
             }
         });
 

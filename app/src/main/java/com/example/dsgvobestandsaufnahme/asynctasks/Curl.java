@@ -30,7 +30,7 @@ public class Curl extends AsyncTask<URL, Integer, String> {
     @Override
     protected String doInBackground(URL... urls) {
         StringBuilder builder = new StringBuilder();
-
+        Log.d(LOG_TAG, "---------------------------------------------------------------------------------CURL gestartet");
         for (URL url : urls) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
                 for (String line; (line = reader.readLine()) != null; ) {
@@ -52,6 +52,7 @@ public class Curl extends AsyncTask<URL, Integer, String> {
     protected void onPostExecute(String s) {
 
         String[] array = s.split("HIERTRENNEN");
+        Log.d(LOG_TAG, "-----------------------------------------------------------------------CURL Post execute");
 
         try {
 
