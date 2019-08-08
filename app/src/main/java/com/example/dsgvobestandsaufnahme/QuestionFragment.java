@@ -94,7 +94,7 @@ public class QuestionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 cardStack.setSelection(previousposition);
-                previousposition--;
+                if (previousposition!=0)previousposition--;
             }
         });
 
