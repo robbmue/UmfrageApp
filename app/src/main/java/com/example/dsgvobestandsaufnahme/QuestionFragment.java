@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
 import com.daprlabs.cardstack.SwipeDeck;
+import com.example.dsgvobestandsaufnahme.answers.Answer;
 import com.example.dsgvobestandsaufnahme.answers.Answers;
 import com.example.dsgvobestandsaufnahme.survey.Survey;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +28,7 @@ public class QuestionFragment extends Fragment {
     private FloatingActionButton fabYes;
     private FloatingActionButton fabNo;
     private FloatingActionButton fabBACK;
+    private EditText notes;
     private int previousposition;
     public static final String LOG_TAG = QuestionFragment.class.getSimpleName();
 
@@ -45,6 +48,8 @@ public class QuestionFragment extends Fragment {
         fabYes = rootView.findViewById(R.id.fabYES);
         fabNo = rootView.findViewById(R.id.fabNO);
         fabBACK = rootView.findViewById(R.id.fabBACK);
+        notes = rootView.findViewById(R.id.notes);
+
 
         final SwipeDeckAdapter adapter = new SwipeDeckAdapter(survey.getQuestions(), getActivity().getApplicationContext());
         cardStack.setAdapter(adapter);
@@ -52,12 +57,16 @@ public class QuestionFragment extends Fragment {
             @Override
             public void cardSwipedLeft(int position) {
                 previousposition = position;
+                answers.getAnswerArrayList().set(position, new Answer(position, "NO", notes.getText().toString()));
+                notes.setText("");
                 Log.d(LOG_TAG, "card was swiped left, position in adapter: " + position);
             }
 
             @Override
             public void cardSwipedRight(int position) {
                 previousposition = position;
+                answers.getAnswerArrayList().set(position, new Answer(position, "YES", notes.getText().toString()));
+                notes.setText("");
                 Log.d(LOG_TAG ,"card was swiped right, position in adapter: " + position);
             }
 

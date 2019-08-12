@@ -2,11 +2,14 @@ package com.example.dsgvobestandsaufnahme.answers;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import com.example.dsgvobestandsaufnahme.survey.Survey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "answers")
+@Entity(tableName = "answers", foreignKeys = @ForeignKey(entity = Survey.class, parentColumns = "name", childColumns = "surveyName"))
 public class Answers {
 
     @PrimaryKey
@@ -15,7 +18,8 @@ public class Answers {
     @ColumnInfo(name = "companyName")
     private String companyName;
 
-    @ColumnInfo(name = "survey")
+
+    @ColumnInfo(name = "surveyName")
     private String surveyName;
 
     @ColumnInfo(name = "answerArray")

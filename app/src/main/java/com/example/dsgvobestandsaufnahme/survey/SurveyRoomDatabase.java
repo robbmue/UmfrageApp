@@ -7,7 +7,6 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.dsgvobestandsaufnahme.ConvertersA;
@@ -39,6 +38,7 @@ public abstract class SurveyRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    /*
     static final Migration MIGRATION_1_2 = new Migration(1,2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
@@ -58,7 +58,7 @@ public abstract class SurveyRoomDatabase extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
 
         }
-    };
+    };*/
 
 
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
