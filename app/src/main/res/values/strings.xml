@@ -13,6 +13,9 @@
     <string name="description">Description</string>
     <string name="synchronize">Synchronize</string>
     <string name="bitte_antwort_eingeben">Bitte Antwort eingeben.</string>
+    <string name="notizen">Notizen</string>
+    <string name="name_der_firma">Name der Firma:</string>
+    <string name="name_eingeben">Name des Kunden hier eingeben</string>
     <!--
     <string-array name="survey_titles">
         <item>DSGVO Bestandsaufnahme</item>

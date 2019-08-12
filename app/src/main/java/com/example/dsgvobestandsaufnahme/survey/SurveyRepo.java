@@ -1,4 +1,4 @@
-package com.example.dsgvobestandsaufnahme;
+package com.example.dsgvobestandsaufnahme.survey;
 
 import android.app.Application;
 
@@ -13,13 +13,13 @@ public class SurveyRepo {
     private SurveyDao surveyDao;
     private LiveData<List<Survey>> allSurveys;
 
-    SurveyRepo(Application application){
+    public SurveyRepo(Application application){
         SurveyRoomDatabase db = SurveyRoomDatabase.getDatabase(application);
         surveyDao = db.surveyDao();
         allSurveys = surveyDao.getAllSurveys();
     }
 
-    LiveData<List<Survey>> getAllSurveys(){
+    public LiveData<List<Survey>> getAllSurveys(){
         return allSurveys;
     }
 

@@ -1,4 +1,4 @@
-package com.example.dsgvobestandsaufnahme;
+package com.example.dsgvobestandsaufnahme.survey;
 
 
 import android.util.Log;

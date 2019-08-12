@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.daprlabs.cardstack.SwipeDeck;
+import com.example.dsgvobestandsaufnahme.answers.Answers;
+import com.example.dsgvobestandsaufnahme.survey.Survey;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -19,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class QuestionFragment extends Fragment {
 
     private Survey survey;
+    private Answers answers;
     private SwipeDeck cardStack;
     private FloatingActionButton fabYes;
     private FloatingActionButton fabNo;
@@ -26,8 +29,9 @@ public class QuestionFragment extends Fragment {
     private int previousposition;
     public static final String LOG_TAG = QuestionFragment.class.getSimpleName();
 
-    public QuestionFragment(Survey survey) {
+    public QuestionFragment(Survey survey, String companyName) {
         this.survey = survey;
+        this.answers = new Answers(survey.getName(), companyName);
         Log.d(getClass().getSimpleName(), survey.getName() + "opened");
     }
 

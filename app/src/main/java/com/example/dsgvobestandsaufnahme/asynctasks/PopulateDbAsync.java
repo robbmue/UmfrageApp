@@ -3,9 +3,9 @@ package com.example.dsgvobestandsaufnahme.asynctasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.dsgvobestandsaufnahme.Survey;
-import com.example.dsgvobestandsaufnahme.SurveyDao;
-import com.example.dsgvobestandsaufnahme.SurveyRoomDatabase;
+import com.example.dsgvobestandsaufnahme.survey.Survey;
+import com.example.dsgvobestandsaufnahme.survey.SurveyDao;
+import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
 
 public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 

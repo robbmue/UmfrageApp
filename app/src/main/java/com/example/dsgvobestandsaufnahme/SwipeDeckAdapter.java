@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.dsgvobestandsaufnahme.survey.Question;
+
 import java.util.List;
 
 public class SwipeDeckAdapter extends BaseAdapter {

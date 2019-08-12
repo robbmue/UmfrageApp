@@ -1,4 +1,4 @@
-package com.example.dsgvobestandsaufnahme;
+package com.example.dsgvobestandsaufnahme.survey;
 
 import android.app.Application;
 
@@ -19,7 +19,7 @@ public class SurveyViewModel extends AndroidViewModel {
         allSurveys = repo.getAllSurveys();
     }
 
-    LiveData<List<Survey>> getAllSurveys(){
+    public LiveData<List<Survey>> getAllSurveys(){
         return allSurveys;
     }
 

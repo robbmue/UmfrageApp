@@ -1,4 +1,4 @@
-package com.example.dsgvobestandsaufnahme;
+package com.example.dsgvobestandsaufnahme.survey;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

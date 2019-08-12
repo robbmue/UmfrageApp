@@ -2,8 +2,8 @@ package com.example.dsgvobestandsaufnahme.asynctasks;
 
 import android.os.AsyncTask;
 
-import com.example.dsgvobestandsaufnahme.Survey;
-import com.example.dsgvobestandsaufnahme.SurveyDao;
+import com.example.dsgvobestandsaufnahme.survey.Survey;
+import com.example.dsgvobestandsaufnahme.survey.SurveyDao;
 
 public class  insertAsyncTask extends AsyncTask<Survey, Void, Void> {
 

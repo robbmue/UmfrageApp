@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.dsgvobestandsaufnahme.Survey;
-import com.example.dsgvobestandsaufnahme.SurveyRoomDatabase;
+import com.example.dsgvobestandsaufnahme.survey.Survey;
+import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;

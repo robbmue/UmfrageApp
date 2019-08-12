@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daprlabs.cardstack.SwipeFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:swipedeck="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -55,6 +56,22 @@
             swipedeck:backgroundTint="@android:color/holo_green_light"
             swipedeck:layout_constraintBottom_toBottomOf="parent"
             swipedeck:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/notizen"
+            android:inputType="textMultiLine"
+            swipedeck:layout_constraintBottom_toTopOf="@+id/fabBACK"
+            swipedeck:layout_constraintEnd_toEndOf="parent"
+            swipedeck:layout_constraintStart_toStartOf="parent"
+            android:autofillHints="" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

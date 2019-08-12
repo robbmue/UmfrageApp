@@ -1,4 +1,4 @@
-package com.example.dsgvobestandsaufnahme;
+package com.example.dsgvobestandsaufnahme.survey;
 
 import android.content.Context;
 
@@ -10,13 +10,18 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.dsgvobestandsaufnahme.ConvertersA;
+import com.example.dsgvobestandsaufnahme.ConvertersQ;
+import com.example.dsgvobestandsaufnahme.answers.AnswerDao;
+import com.example.dsgvobestandsaufnahme.answers.Answers;
 import com.example.dsgvobestandsaufnahme.asynctasks.PopulateDbAsync;
 
-@Database(entities = {Survey.class}, version = 3, exportSchema = false)
-@TypeConverters({Converters.class})
+@Database(entities = {Survey.class, Answers.class}, version = 4, exportSchema = false)
+@TypeConverters({ConvertersQ.class, ConvertersA.class})
 public abstract class SurveyRoomDatabase extends RoomDatabase {
 
     public abstract SurveyDao surveyDao();
+    public abstract AnswerDao answerDao();
     private static SurveyRoomDatabase INSTANCE;
 
     public static SurveyRoomDatabase getDatabase(final Context context){
@@ -26,7 +31,7 @@ public abstract class SurveyRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             SurveyRoomDatabase.class, "survey_database")
                             .addCallback(sRoomDatabaseCallback)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                             .build();
                 }
             }
@@ -42,6 +47,13 @@ public abstract class SurveyRoomDatabase extends RoomDatabase {
     };
 
     static final Migration MIGRATION_2_3 = new Migration(2,3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+        }
+    };
+
+    static final Migration MIGRATION_3_4 = new Migration(3,4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
 

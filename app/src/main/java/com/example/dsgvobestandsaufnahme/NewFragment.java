@@ -13,6 +13,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dsgvobestandsaufnahme.survey.Survey;
+import com.example.dsgvobestandsaufnahme.survey.SurveyAdapter;
+import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
+import com.example.dsgvobestandsaufnahme.survey.SurveyViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
 

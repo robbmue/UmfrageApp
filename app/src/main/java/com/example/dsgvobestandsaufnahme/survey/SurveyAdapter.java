@@ -1,17 +1,24 @@
-package com.example.dsgvobestandsaufnahme;
+package com.example.dsgvobestandsaufnahme.survey;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.dsgvobestandsaufnahme.MainActivity;
+import com.example.dsgvobestandsaufnahme.QuestionFragment;
+import com.example.dsgvobestandsaufnahme.R;
 
 import java.util.List;
 
@@ -42,7 +49,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
         }
     }
 
-    void setSurveyData(List<Survey> surveys){
+    public void setSurveyData(List<Survey> surveys){
         surveyData = surveys;
         notifyDataSetChanged();
     }
@@ -79,8 +86,32 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
             ivSurvey.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    QuestionFragment newFrag = new QuestionFragment(curretnSurvey);
-                    MainActivity.openSurvey(newFrag);
+
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setTitle("Name der Firma");
+
+                    final EditText input = new EditText(view.getContext());
+                    input.setHint("Hier den Namen des Kunden eingeben");
+                    builder.setView(input);
+
+                    builder.setPositiveButton("Start", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            final QuestionFragment newFrag = new QuestionFragment(curretnSurvey, input.getText().toString());
+                            MainActivity.openSurvey(newFrag);
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
+
                     /*
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     activity.getSupportFragmentManager()
