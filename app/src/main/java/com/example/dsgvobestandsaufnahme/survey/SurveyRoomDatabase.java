@@ -31,7 +31,7 @@ public abstract class SurveyRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             SurveyRoomDatabase.class, "survey_database")
                             .addCallback(sRoomDatabaseCallback)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
