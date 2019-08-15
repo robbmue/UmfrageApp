@@ -6,15 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dsgvobestandsaufnahme.answers.Answer;
-import com.example.dsgvobestandsaufnahme.answers.AnswerDao;
 import com.example.dsgvobestandsaufnahme.answers.Answers;
+import com.example.dsgvobestandsaufnahme.answers.AnswersAdapter;
+import com.example.dsgvobestandsaufnahme.answers.AnswersViewModel;
 import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,7 +28,10 @@ import java.util.List;
 public class OpenFragment extends Fragment {
 
     LayoutInflater inflater;
-    TextView displayOpen;
+    RecyclerView displayOpen;
+    List<Answers> answerList;
+    AnswersAdapter answerAdapter;
+    AnswersViewModel answersViewModel;
 
     public OpenFragment() {
         // Required empty public constructor
@@ -39,37 +46,38 @@ public class OpenFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_open, container, false);
     }
 
-    public void refresh(){
+    public void refresh() {
 
         View v = getView();
         //v = inflater.inflate(R.layout.fragment_open, ((ViewGroup)v.getParent()),false);
-        displayOpen = v.findViewById(R.id.testOpen);
-        SurveyRoomDatabase db = SurveyRoomDatabase.getDatabase(getContext());
-        AnswerDao dao = db.answerDao();
+        displayOpen = v.findViewById(R.id.displayOpen);
+        displayOpen.setLayoutManager(new LinearLayoutManager(getActivity()));
+        answerList = new ArrayList<>();
+        answerAdapter = new AnswersAdapter(getActivity());
+        displayOpen.setAdapter(answerAdapter);
+        answersViewModel = ViewModelProviders.of(this).get(AnswersViewModel.class);
+        answerList = answersViewModel.getAllAnsweres().getValue();
+        answersViewModel.getAllAnsweres().observe(this, new Observer<List<Answers>>() {
+            @Override
+            public void onChanged(List<Answers> surveys) {
+                answerAdapter.setAnswersData(answerList);
+            }
+        });
+
+
         getAnswers();
 
     }
 
-    private void getAnswers(){
+    private void getAnswers() {
         class GetAnswers extends AsyncTask<Void, Void, List<Answers>> {
 
             @Override
             protected List<Answers> doInBackground(Void... voids) {
-                List<Answers> answerList = SurveyRoomDatabase.getDatabase(getContext()).answerDao().getAll();
+                List<Answers> answerList = SurveyRoomDatabase.getDatabase(getContext()).answerDao().getAll().getValue();
                 return answerList;
             }
 
-            @Override
-            protected void onPostExecute(List<Answers> answers) {
-                for (Answers obj:
-                     answers) {
-                    displayOpen.append(obj.getSurveyName() + " für " + obj.getCompanyName() + "\n");
-                    for (Answer ans :
-                            obj.getAnswerArrayList()) {
-                        displayOpen.append(ans.toString() + "\n");
-                    }
-                }
-            }
         }
 
         GetAnswers getAnswers = new GetAnswers();

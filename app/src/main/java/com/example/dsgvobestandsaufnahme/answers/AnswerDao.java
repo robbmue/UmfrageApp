@@ -1,5 +1,6 @@
 package com.example.dsgvobestandsaufnahme.answers;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface AnswerDao {
 
     @Query("SELECT * FROM answers")
-    List<Answers> getAll();
+    LiveData<List<Answers>> getAll();
 
     @Query("SELECT COUNT(*) FROM answers")
     int countAnswers();
