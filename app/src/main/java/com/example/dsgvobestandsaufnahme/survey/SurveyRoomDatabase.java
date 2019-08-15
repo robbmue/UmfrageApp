@@ -15,7 +15,7 @@ import com.example.dsgvobestandsaufnahme.answers.AnswerDao;
 import com.example.dsgvobestandsaufnahme.answers.Answers;
 import com.example.dsgvobestandsaufnahme.asynctasks.PopulateDbAsync;
 
-@Database(entities = {Survey.class, Answers.class}, version = 4, exportSchema = false)
+@Database(entities = {Survey.class, Answers.class}, version = 5, exportSchema = false)
 @TypeConverters({ConvertersQ.class, ConvertersA.class})
 public abstract class SurveyRoomDatabase extends RoomDatabase {
 

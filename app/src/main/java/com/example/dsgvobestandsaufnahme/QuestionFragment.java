@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.daprlabs.cardstack.SwipeDeck;
 import com.example.dsgvobestandsaufnahme.answers.Answer;
 import com.example.dsgvobestandsaufnahme.answers.Answers;
+import com.example.dsgvobestandsaufnahme.asynctasks.SafeAnswers;
 import com.example.dsgvobestandsaufnahme.survey.Survey;
+import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -28,13 +30,14 @@ public class QuestionFragment extends Fragment {
     private FloatingActionButton fabYes;
     private FloatingActionButton fabNo;
     private FloatingActionButton fabBACK;
+    private FloatingActionButton fabSAVE;
     private EditText notes;
     private int previousposition;
     public static final String LOG_TAG = QuestionFragment.class.getSimpleName();
 
     public QuestionFragment(Survey survey, String companyName) {
         this.survey = survey;
-        this.answers = new Answers(survey.getName(), companyName);
+        this.answers = new Answers(survey.getName(), companyName, survey.getQuestions().size());
         Log.d(getClass().getSimpleName(), survey.getName() + "opened");
     }
 
@@ -43,11 +46,12 @@ public class QuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_question, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_question, container, false);
         cardStack = rootView.findViewById(R.id.swipe_deck);
         fabYes = rootView.findViewById(R.id.fabYES);
         fabNo = rootView.findViewById(R.id.fabNO);
         fabBACK = rootView.findViewById(R.id.fabBACK);
+        fabSAVE = rootView.findViewById(R.id.fabSAVE);
         notes = rootView.findViewById(R.id.notes);
 
 
@@ -57,7 +61,12 @@ public class QuestionFragment extends Fragment {
             @Override
             public void cardSwipedLeft(int position) {
                 previousposition = position;
-                answers.getAnswerArrayList().set(position, new Answer(position, "NO", notes.getText().toString()));
+                if (survey.getQuestions().get(position).isYn()) {
+                    answers.getAnswerArrayList().set(position, new Answer(position, "NO", notes.getText().toString()));
+                } else {
+                    EditText input = ((EditText)rootView.findViewById(R.id.input));
+                    answers.getAnswerArrayList().set(position, new Answer(position, input.getText().toString(), notes.getText().toString()));
+                }
                 notes.setText("");
                 Log.d(LOG_TAG, "card was swiped left, position in adapter: " + position);
             }
@@ -65,9 +74,14 @@ public class QuestionFragment extends Fragment {
             @Override
             public void cardSwipedRight(int position) {
                 previousposition = position;
-                answers.getAnswerArrayList().set(position, new Answer(position, "YES", notes.getText().toString()));
+                if (survey.getQuestions().get(position).isYn()) {
+                    answers.getAnswerArrayList().set(position, new Answer(position, "YES", notes.getText().toString()));
+                }else{
+                    EditText input = ((EditText)rootView.findViewById(R.id.input));
+                    answers.getAnswerArrayList().set(position, new Answer(position, input.getText().toString(), notes.getText().toString()));
+                }
                 notes.setText("");
-                Log.d(LOG_TAG ,"card was swiped right, position in adapter: " + position);
+                Log.d(LOG_TAG, "card was swiped right, position in adapter: " + position);
             }
 
             @Override
@@ -87,7 +101,7 @@ public class QuestionFragment extends Fragment {
         });
 
 
-        fabNo.setOnClickListener(new View.OnClickListener(){
+        fabNo.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -95,7 +109,7 @@ public class QuestionFragment extends Fragment {
             }
         });
 
-        fabYes.setOnClickListener(new View.OnClickListener(){
+        fabYes.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -107,7 +121,14 @@ public class QuestionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 cardStack.setSelection(previousposition);
-                if (previousposition!=0)previousposition--;
+                if (previousposition != 0) previousposition--;
+            }
+        });
+
+        fabSAVE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SafeAnswers(SurveyRoomDatabase.getDatabase(getContext()),answers).execute();
             }
         });
 

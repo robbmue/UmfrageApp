@@ -13,5 +13,10 @@ public class Answer {
         this.notes = notes;
     }
 
+    public Answer(){};
 
+    @Override
+    public String toString() {
+        return "ID: " + id + ", answer: " + answer + ", notes: " + notes;
+    }
 }

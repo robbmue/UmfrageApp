@@ -13,6 +13,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static NoSwipePager viewPager;
     private static BottomBarAdapter pagerAdapter;
+    private NewFragment fragmentNew;
+    private OpenFragment fragmentOpen;
+    private SyncFragment fragmentSync;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                     return true;
                 case R.id.navigation_open:
+                    fragmentOpen.refresh();
                     viewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_sync:
@@ -56,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
 
         //Create Fragments and add them to the Adapter
-        NewFragment fragmentNew = new NewFragment();
-        OpenFragment fragmentOpen = new OpenFragment();
-        SyncFragment fragmentSync = new SyncFragment();
+        fragmentNew = new NewFragment();
+        fragmentOpen = new OpenFragment();
+        fragmentSync = new SyncFragment();
         pagerAdapter.addFragements(fragmentNew);
         pagerAdapter.addFragements(fragmentOpen);
         pagerAdapter.addFragements(fragmentSync);

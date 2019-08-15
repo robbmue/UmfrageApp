@@ -28,10 +28,13 @@ public class Answers {
     public Answers() {
     }
 
-    public Answers(String survey, String companyName) {
+    public Answers(String survey, String companyName, int size) {
         this.surveyName = survey;
         this.companyName = companyName;
         this.answerArrayList = new ArrayList<>();
+        for (int i = 0; i < size; i++){
+            answerArrayList.add(new Answer());
+        }
     }
 
     public String getCompanyName() {

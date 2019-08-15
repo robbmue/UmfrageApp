@@ -16,6 +16,7 @@
     <string name="notizen">Notizen</string>
     <string name="name_der_firma">Name der Firma:</string>
     <string name="name_eingeben">Name des Kunden hier eingeben</string>
+    <string name="hint_open">Hier wirst du die durchgeführten Umfragen finden.</string>
     <!--
     <string-array name="survey_titles">
         <item>DSGVO Bestandsaufnahme</item>

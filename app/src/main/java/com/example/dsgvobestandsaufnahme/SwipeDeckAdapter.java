@@ -55,6 +55,7 @@ public class SwipeDeckAdapter extends BaseAdapter {
             EditText input = new EditText(context);
             input.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
             input.setSingleLine(false);
+            input.setId(R.id.input);
             layout.addView(input);
         }
 

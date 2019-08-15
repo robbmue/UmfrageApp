@@ -3,6 +3,7 @@ package com.example.dsgvobestandsaufnahme.answers;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface AnswerDao {
     @Query("SELECT COUNT(*) FROM answers")
     int countAnswers();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Answers... answers);
 
     @Delete
