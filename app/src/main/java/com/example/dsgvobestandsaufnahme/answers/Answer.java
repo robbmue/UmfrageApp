@@ -17,6 +17,7 @@ public class Answer {
 
     @Override
     public String toString() {
+        if (notes.equals("")) return "Antwort: " + answer;
         return "Antwort: " + answer + ", notes: " + notes;
     }
 }

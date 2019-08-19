@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dsgvobestandsaufnahme.answers.Answers;
-import com.example.dsgvobestandsaufnahme.survey.Survey;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                     return true;
                 case R.id.navigation_open:
-                    fragmentOpen.refresh();
                     viewPager.setCurrentItem(1);
+                    fragmentOpen.refresh();
                     return true;
                 case R.id.navigation_sync:
                     viewPager.setCurrentItem(2);
