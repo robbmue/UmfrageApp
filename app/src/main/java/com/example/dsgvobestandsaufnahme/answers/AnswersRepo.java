@@ -16,7 +16,7 @@ public class AnswersRepo {
     public AnswersRepo(Application application){
         SurveyRoomDatabase db = SurveyRoomDatabase.getDatabase(application);
         answerDao = db.answerDao();
-        allAnswers = ((AnswerDao) answerDao).getAll();
+        allAnswers = (answerDao).getAll();
     }
 
     public LiveData<List<Answers>> getAllAnswers(){

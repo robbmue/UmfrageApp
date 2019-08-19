@@ -2,14 +2,13 @@ package com.example.dsgvobestandsaufnahme.answers;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import com.example.dsgvobestandsaufnahme.survey.Survey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "answers", foreignKeys = @ForeignKey(entity = Survey.class, parentColumns = "name", childColumns = "surveyName"))
+@Entity(tableName = "answers")
 public class Answers {
 
     @PrimaryKey
@@ -19,8 +18,8 @@ public class Answers {
     private String companyName;
 
 
-    @ColumnInfo(name = "surveyName")
-    private String surveyName;
+    @ColumnInfo(name = "survey")
+    private Survey survey;
 
     @ColumnInfo(name = "answerArray")
     private ArrayList<Answer> answerArrayList;
@@ -28,8 +27,8 @@ public class Answers {
     public Answers() {
     }
 
-    public Answers(String survey, String companyName, int size) {
-        this.surveyName = survey;
+    public Answers(Survey survey, String companyName, int size) {
+        this.survey = survey;
         this.companyName = companyName;
         this.answerArrayList = new ArrayList<>();
         for (int i = 0; i < size; i++){
@@ -45,13 +44,6 @@ public class Answers {
         this.companyName = companyName;
     }
 
-    public String getSurveyName() {
-        return surveyName;
-    }
-
-    public void setSurveyName(String surveyName) {
-        this.surveyName = surveyName;
-    }
 
     public int getId() {
         return id;
@@ -63,6 +55,14 @@ public class Answers {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
     public void setAnswerArrayList(ArrayList<Answer> answerArrayList) {

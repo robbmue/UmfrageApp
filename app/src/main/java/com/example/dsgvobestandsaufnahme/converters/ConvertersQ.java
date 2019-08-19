@@ -1,27 +1,27 @@
-package com.example.dsgvobestandsaufnahme;
+package com.example.dsgvobestandsaufnahme.converters;
 
 import android.util.Log;
 
 import androidx.room.TypeConverter;
 
-import com.example.dsgvobestandsaufnahme.answers.Answer;
+import com.example.dsgvobestandsaufnahme.survey.Question;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ConvertersA {
+public class ConvertersQ {
     @TypeConverter
-    public static ArrayList<Answer> fromString(String value){
+    public static ArrayList<Question> fromString(String value){
         Log.d(ConvertersQ.class.getSimpleName(), value);
-        Type listType = new TypeToken<ArrayList<Answer>>(){}.getType();
+        Type listType = new TypeToken<ArrayList<Question>>(){}.getType();
         Log.d(ConvertersQ.class.getSimpleName(), listType.toString());
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
-    public static String fromArrayList(ArrayList<Answer> list){
+    public static String fromArrayList(ArrayList<Question> list){
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

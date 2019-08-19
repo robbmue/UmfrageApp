@@ -112,13 +112,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
 
                     builder.show();
 
-                    /*
-                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    activity.getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.viewPager, newFrag)
-                            .addToBackStack(null)
-                            .commit();*/
+
                 }
             });
         }

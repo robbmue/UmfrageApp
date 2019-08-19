@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dsgvobestandsaufnahme.answers.Answers;
+import com.example.dsgvobestandsaufnahme.survey.Survey;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(pagerAdapter.getCount());
 
+    }
+
+    public static void openAnswers(Answers curretnAnswers) {
+        AnswersFragment answersFragment = new AnswersFragment(curretnAnswers);
+        pagerAdapter.addFragements(answersFragment);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(pagerAdapter.getCount());
     }
 
 }

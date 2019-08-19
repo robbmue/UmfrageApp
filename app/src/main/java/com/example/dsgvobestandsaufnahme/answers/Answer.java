@@ -17,6 +17,6 @@ public class Answer {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", answer: " + answer + ", notes: " + notes;
+        return "Antwort: " + answer + ", notes: " + notes;
     }
 }

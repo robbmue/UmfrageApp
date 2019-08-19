@@ -37,7 +37,7 @@ public class QuestionFragment extends Fragment {
 
     public QuestionFragment(Survey survey, String companyName) {
         this.survey = survey;
-        this.answers = new Answers(survey.getName(), companyName, survey.getQuestions().size());
+        this.answers = new Answers(survey , companyName, survey.getQuestions().size());
         Log.d(getClass().getSimpleName(), survey.getName() + "opened");
     }
 
@@ -64,7 +64,7 @@ public class QuestionFragment extends Fragment {
                 if (survey.getQuestions().get(position).isYn()) {
                     answers.getAnswerArrayList().set(position, new Answer(position, "NO", notes.getText().toString()));
                 } else {
-                    EditText input = ((EditText)rootView.findViewById(R.id.input));
+                    EditText input = (rootView.findViewById(R.id.input));
                     answers.getAnswerArrayList().set(position, new Answer(position, input.getText().toString(), notes.getText().toString()));
                 }
                 notes.setText("");

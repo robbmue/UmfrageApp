@@ -9,14 +9,15 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.dsgvobestandsaufnahme.ConvertersA;
-import com.example.dsgvobestandsaufnahme.ConvertersQ;
+import com.example.dsgvobestandsaufnahme.converters.ConvertersA;
+import com.example.dsgvobestandsaufnahme.converters.ConvertersQ;
 import com.example.dsgvobestandsaufnahme.answers.AnswerDao;
 import com.example.dsgvobestandsaufnahme.answers.Answers;
 import com.example.dsgvobestandsaufnahme.asynctasks.PopulateDbAsync;
+import com.example.dsgvobestandsaufnahme.converters.ConvertersS;
 
-@Database(entities = {Survey.class, Answers.class}, version = 5, exportSchema = false)
-@TypeConverters({ConvertersQ.class, ConvertersA.class})
+@Database(entities = {Survey.class, Answers.class}, version = 6, exportSchema = false)
+@TypeConverters({ConvertersQ.class, ConvertersA.class, ConvertersS.class})
 public abstract class SurveyRoomDatabase extends RoomDatabase {
 
     public abstract SurveyDao surveyDao();

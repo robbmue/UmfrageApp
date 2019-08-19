@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dsgvobestandsaufnahme.MainActivity;
 import com.example.dsgvobestandsaufnahme.R;
 
 import java.util.List;
@@ -60,26 +61,28 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
 
         private TextView tvTitle;
         private TextView tvDescriptio;
-        private ImageView ivSurvey;
+        private ImageView ivAnswer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.title);
             tvDescriptio = itemView.findViewById(R.id.description);
-            ivSurvey = itemView.findViewById(R.id.pic);
+            ivAnswer = itemView.findViewById(R.id.pic);
 
         }
 
         void bindTo(final Answers curretnAnswers){
-            tvTitle.setText(curretnAnswers.getSurveyName());
+            tvTitle.setText(curretnAnswers.getSurvey().getName());
             tvDescriptio.setText(curretnAnswers.getCompanyName());
-            /*byte[] decodedString = Base64.decode(curretnAnswers.getImageResource(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ivSurvey.setImageBitmap(decodedByte);*/
+            ivAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MainActivity.openAnswers(curretnAnswers);
+                }
+            });
 
         }
     }
-
 
 }
