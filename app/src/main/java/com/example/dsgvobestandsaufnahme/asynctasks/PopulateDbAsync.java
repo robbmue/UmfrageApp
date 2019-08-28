@@ -3,30 +3,35 @@ package com.example.dsgvobestandsaufnahme.asynctasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.dsgvobestandsaufnahme.answers.AnswerDao;
+import com.example.dsgvobestandsaufnahme.answers.Answers;
 import com.example.dsgvobestandsaufnahme.survey.Survey;
 import com.example.dsgvobestandsaufnahme.survey.SurveyDao;
 import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
 
 public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-    private final SurveyDao dao;
+    private final SurveyDao surveyDao;
+    private final AnswerDao answerDao;
     Survey[] surveys;
+    Answers[] answers;
 
 
     public PopulateDbAsync(SurveyRoomDatabase db) {
-        this.dao = db.surveyDao();
+        this.surveyDao = db.surveyDao();
+        this.answerDao = db.answerDao();
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         //dao.deleteAll();
         if (surveys != null) {
-            Log.d(this.getClass().getSimpleName(), surveys[0].getName());
+            Log.d(this.getClass().getSimpleName(), "Populate Surveys");
             for (Survey survey :
                     surveys) {
-                dao.insert(survey);
-
+                surveyDao.insert(survey);
             }
+            answerDao.insertAll(answers);
         }
         return null;
     }

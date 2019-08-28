@@ -3,6 +3,7 @@ package com.example.dsgvobestandsaufnahme;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,13 +44,8 @@ public class OpenFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         this.inflater = inflater;
-        return inflater.inflate(R.layout.fragment_open, container, false);
-    }
 
-    public void refresh() {
-
-        View v = getView();
-        //v = inflater.inflate(R.layout.fragment_open, ((ViewGroup)v.getParent()),false);
+        View v = inflater.inflate(R.layout.fragment_open, container, false);
         displayOpen = v.findViewById(R.id.displayOpen);
         displayOpen.setLayoutManager(new LinearLayoutManager(getActivity()));
         answerList = new ArrayList<>();
@@ -59,15 +55,17 @@ public class OpenFragment extends Fragment {
         answerList = answersViewModel.getAllAnsweres().getValue();
         answersViewModel.getAllAnsweres().observe(this, new Observer<List<Answers>>() {
             @Override
-            public void onChanged(List<Answers> surveys) {
+            public void onChanged(List<Answers> answers) {
                 answerAdapter.setAnswersData(answerList);
+                Log.d("DEBUG", "Answers list changed");
             }
         });
 
 
         getAnswers();
-
+        return v;
     }
+
 
     private void getAnswers() {
         class GetAnswers extends AsyncTask<Void, Void, List<Answers>> {

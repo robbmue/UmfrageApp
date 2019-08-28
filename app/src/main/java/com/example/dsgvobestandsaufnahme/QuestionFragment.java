@@ -37,7 +37,7 @@ public class QuestionFragment extends Fragment {
 
     public QuestionFragment(Survey survey, String companyName) {
         this.survey = survey;
-        this.answers = new Answers(survey , companyName, survey.getQuestions().size());
+        this.answers = new Answers(survey, companyName, survey.getQuestions().size());
         Log.d(getClass().getSimpleName(), survey.getName() + "opened");
     }
 
@@ -76,8 +76,8 @@ public class QuestionFragment extends Fragment {
                 previousposition = position;
                 if (survey.getQuestions().get(position).isYn()) {
                     answers.getAnswerArrayList().set(position, new Answer(position, "YES", notes.getText().toString()));
-                }else{
-                    EditText input = ((EditText)rootView.findViewById(R.id.input));
+                } else {
+                    EditText input = ((EditText) rootView.findViewById(R.id.input));
                     answers.getAnswerArrayList().set(position, new Answer(position, input.getText().toString(), notes.getText().toString()));
                 }
                 notes.setText("");
@@ -128,7 +128,13 @@ public class QuestionFragment extends Fragment {
         fabSAVE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SafeAnswers(SurveyRoomDatabase.getDatabase(getContext()),answers).execute();
+                new SafeAnswers(SurveyRoomDatabase.getDatabase(getContext())).execute(answers);
+                for (Answer obj :
+                        answers.getAnswerArrayList()) {
+                    if (obj != null) {
+                        Log.d(LOG_TAG, obj.toString());
+                    }
+                }
             }
         });
 

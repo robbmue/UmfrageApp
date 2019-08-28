@@ -15,7 +15,7 @@ import com.example.dsgvobestandsaufnahme.answers.AnswerAdapter;
 import com.example.dsgvobestandsaufnahme.answers.Answers;
 import com.example.dsgvobestandsaufnahme.survey.Survey;
 
-class AnswersFragment extends Fragment {
+public class AnswersFragment extends Fragment {
 
     RecyclerView displayAnswers;
     Answers answers;
