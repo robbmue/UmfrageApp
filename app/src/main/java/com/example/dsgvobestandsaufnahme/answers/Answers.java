@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Entity(tableName = "answers")
 public class Answers {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "companyName")

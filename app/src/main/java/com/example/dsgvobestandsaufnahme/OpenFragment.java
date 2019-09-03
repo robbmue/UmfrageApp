@@ -3,6 +3,7 @@ package com.example.dsgvobestandsaufnahme;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class OpenFragment extends Fragment {
 
     public void refresh() {
 
+        Log.d(getClass().getSimpleName(), "--------------started a refresh on the database");
         View v = getView();
         //v = inflater.inflate(R.layout.fragment_open, ((ViewGroup)v.getParent()),false);
         displayOpen = v.findViewById(R.id.displayOpen);

@@ -19,7 +19,7 @@ public interface AnswerDao {
     int countAnswers();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Answers... answers);
+    void insertAll(Answers answers);
 
     @Delete
     void delete(Answers answers);
