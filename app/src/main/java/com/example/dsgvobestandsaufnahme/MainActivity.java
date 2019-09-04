@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_open:
                     viewPager.setCurrentItem(1);
-                    fragmentOpen.refresh();
                     return true;
                 case R.id.navigation_sync:
                     viewPager.setCurrentItem(2);

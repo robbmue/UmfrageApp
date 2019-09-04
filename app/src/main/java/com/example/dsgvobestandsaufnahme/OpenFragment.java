@@ -3,7 +3,6 @@ package com.example.dsgvobestandsaufnahme;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +33,8 @@ public class OpenFragment extends Fragment {
     AnswersAdapter answerAdapter;
     AnswersViewModel answersViewModel;
 
+
+
     public OpenFragment() {
         // Required empty public constructor
     }
@@ -56,35 +57,14 @@ public class OpenFragment extends Fragment {
         answersViewModel.getAllAnsweres().observe(this, new Observer<List<Answers>>() {
             @Override
             public void onChanged(List<Answers> answers) {
-                answerAdapter.setAnswersData(answerList);
+                answerAdapter.setAnswersData(answers);
             }
         });
         getAnswers();
         return v;
     }
 
-    public void refresh() {
 
-        Log.d(getClass().getSimpleName(), "--------------started a refresh on the database");
-        View v = getView();
-        //v = inflater.inflate(R.layout.fragment_open, ((ViewGroup)v.getParent()),false);
-        displayOpen = v.findViewById(R.id.displayOpen);
-        displayOpen.setLayoutManager(new LinearLayoutManager(getActivity()));
-        answerList = new ArrayList<>();
-        answerAdapter = new AnswersAdapter(getActivity());
-        displayOpen.setAdapter(answerAdapter);
-        answersViewModel = ViewModelProviders.of(this).get(AnswersViewModel.class);
-        answerList = answersViewModel.getAllAnsweres().getValue();
-        answersViewModel.getAllAnsweres().observe(this, new Observer<List<Answers>>() {
-            @Override
-            public void onChanged(List<Answers> surveys) {
-                answerAdapter.setAnswersData(answerList);
-            }
-        });
-
-        getAnswers();
-
-    }
 
     private void getAnswers() {
         class GetAnswers extends AsyncTask<Void, Void, List<Answers>> {
