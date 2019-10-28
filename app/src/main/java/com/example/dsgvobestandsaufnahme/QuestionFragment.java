@@ -86,7 +86,8 @@ public class QuestionFragment extends Fragment {
 
             @Override
             public void cardsDepleted() {
-                Log.d(LOG_TAG, "no more cards");
+                Log.d(LOG_TAG, "no more cards. Answers will be saved.");
+                new SafeAnswers(SurveyRoomDatabase.getDatabase(getContext()),answers).execute();
             }
 
             @Override
