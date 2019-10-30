@@ -82,11 +82,13 @@ public class SyncFragment extends Fragment {
     private void exportCSV(View view){
 
         File exportDir = new File(Environment.getExternalStorageDirectory(), "");
+        Log.d(LOG_TAG, "Export Dir: " + exportDir.toString());
         if (!exportDir.exists()) {
             exportDir.mkdirs();
         }
 
         File file = new File(exportDir, "answers" + ".csv");
+        Log.d(LOG_TAG, "File: " + file.toString());
         try {
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
