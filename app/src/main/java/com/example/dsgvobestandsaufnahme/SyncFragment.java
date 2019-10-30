@@ -19,13 +19,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.dsgvobestandsaufnahme.asynctasks.Curl;
+import com.example.dsgvobestandsaufnahme.asynctasks.ExportCSV;
 import com.example.dsgvobestandsaufnahme.helper.CSVWriter;
+import com.example.dsgvobestandsaufnahme.survey.Question;
 import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 /**
@@ -70,7 +73,7 @@ public class SyncFragment extends Fragment {
 
         try {
             for (int i = 0; i < GANDALF_YOU_SHALL_NOT_PASS_thisvalue; i++) {
-                urls[i]=(new URL("http://10.10.6.208:5984/surveys/" + i));
+                urls[i] = (new URL("http://10.10.6.208:5984/surveys/" + i));
             }
             new Curl(getActivity().getApplicationContext()).execute(urls);
         } catch (MalformedURLException e) {
@@ -79,7 +82,7 @@ public class SyncFragment extends Fragment {
 
     }
 
-    private void exportCSV(View view){
+    private void exportCSV(View view) {
 
         File exportDir = new File(Environment.getExternalStorageDirectory(), "");
         Log.d(LOG_TAG, "Export Dir: " + exportDir.toString());
@@ -87,18 +90,21 @@ public class SyncFragment extends Fragment {
             exportDir.mkdirs();
         }
 
+
         File file = new File(exportDir, "answers" + ".csv");
         Log.d(LOG_TAG, "File: " + file.toString());
         try {
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
-            Cursor curCSV = SurveyRoomDatabase.getDatabase(view.getContext()).query("SELECT * FROM " + "answers", null);
+            Cursor curCSV = SurveyRoomDatabase.getDatabase(view.getContext()).query("SELECT companyName,answerArray FROM " + "answers", null);
             csvWrite.writeNext(curCSV.getColumnNames());
             while (curCSV.moveToNext()) {
                 //Which column you want to exprort
                 String arrStr[] = new String[curCSV.getColumnCount()];
-                for (int i = 0; i < curCSV.getColumnCount() - 1; i++)
+                for (int i = 0; i < curCSV.getColumnCount(); i++) {
                     arrStr[i] = curCSV.getString(i);
+                    Log.d(LOG_TAG, "curCSV an Index " + i + " ist " + curCSV.getString(i));
+                }
                 csvWrite.writeNext(arrStr);
             }
             csvWrite.close();
@@ -107,38 +113,37 @@ public class SyncFragment extends Fragment {
         } catch (Exception sqlEx) {
             Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
         }
+
+
+
     }
 
-    public  boolean isStoragePermissionGranted() {
-        Log.d(LOG_TAG, "Check if permissions are granted");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Log.d(LOG_TAG, "Build Number is higher than marshmellow");
-            if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.v(LOG_TAG,"Permission is granted");
-                exportCSV(getView());
-                return true;
-            } else {
+    private boolean isStoragePermissionGranted() {
 
-                Log.v(LOG_TAG,"Permission is revoked");
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.v(LOG_TAG,"Permission is always granted");
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            Log.v(LOG_TAG, "Permission is granted");
+            new ExportCSV(SurveyRoomDatabase.getDatabase(getContext())).execute();
             return true;
+        } else {
+
+            Log.v(LOG_TAG, "Permission is revoked");
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            return false;
         }
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         Log.d(LOG_TAG, "onRequestPermissionResults was reached");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            Log.v(LOG_TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(LOG_TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
             //resume tasks needing this permission
-            exportCSV(getView());
+            ExportCSV export = new ExportCSV(SurveyRoomDatabase.getDatabase(getContext()));
+            export.execute();
         }
         return;
     }
