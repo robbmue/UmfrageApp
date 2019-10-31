@@ -1,5 +1,6 @@
 package com.example.dsgvobestandsaufnahme.answers;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -68,4 +69,5 @@ public class Answers {
     public void setAnswerArrayList(ArrayList<Answer> answerArrayList) {
         this.answerArrayList = answerArrayList;
     }
+
 }

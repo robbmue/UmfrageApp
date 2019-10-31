@@ -7,6 +7,7 @@ public class Answer {
     private String notes;
 
 
+
     public Answer(int id, String answer, String notes) {
         this.id = id;
         this.answer = answer;
@@ -14,6 +15,14 @@ public class Answer {
     }
 
     public Answer(){};
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
 
     @Override
     public String toString() {

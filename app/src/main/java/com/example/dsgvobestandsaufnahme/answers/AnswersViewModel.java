@@ -20,6 +20,9 @@ public class AnswersViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Answers>> getAllAnsweres(){
+        if (allAnsweres == null){
+            allAnsweres = repo.getAllAnswers();
+        }
         return allAnsweres;
     }
 

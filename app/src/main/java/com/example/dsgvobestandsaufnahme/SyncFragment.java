@@ -4,7 +4,7 @@ package com.example.dsgvobestandsaufnahme;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -12,23 +12,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 
+import com.example.dsgvobestandsaufnahme.answers.Answer;
+import com.example.dsgvobestandsaufnahme.answers.Answers;
 import com.example.dsgvobestandsaufnahme.asynctasks.Curl;
-import com.example.dsgvobestandsaufnahme.asynctasks.ExportCSV;
 import com.example.dsgvobestandsaufnahme.helper.CSVWriter;
 import com.example.dsgvobestandsaufnahme.survey.Question;
+import com.example.dsgvobestandsaufnahme.survey.Survey;
 import com.example.dsgvobestandsaufnahme.survey.SurveyRoomDatabase;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -60,7 +62,11 @@ public class SyncFragment extends Fragment {
         exportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isStoragePermissionGranted();
+                fuckYourself();
+            }
+
+            private void fuckYourself() {
+                Log.d(LOG_TAG, "BITCH YOU TOUGHT! NOTHING IS GONNA HAPPEN!");
             }
         });
         return rootView;
@@ -82,71 +88,8 @@ public class SyncFragment extends Fragment {
 
     }
 
-    private void exportCSV(View view) {
-
-        File exportDir = new File(Environment.getExternalStorageDirectory(), "");
-        Log.d(LOG_TAG, "Export Dir: " + exportDir.toString());
-        if (!exportDir.exists()) {
-            exportDir.mkdirs();
-        }
 
 
-        File file = new File(exportDir, "answers" + ".csv");
-        Log.d(LOG_TAG, "File: " + file.toString());
-        try {
-            file.createNewFile();
-            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
-            Cursor curCSV = SurveyRoomDatabase.getDatabase(view.getContext()).query("SELECT companyName,answerArray FROM " + "answers", null);
-            csvWrite.writeNext(curCSV.getColumnNames());
-            while (curCSV.moveToNext()) {
-                //Which column you want to exprort
-                String arrStr[] = new String[curCSV.getColumnCount()];
-                for (int i = 0; i < curCSV.getColumnCount(); i++) {
-                    arrStr[i] = curCSV.getString(i);
-                    Log.d(LOG_TAG, "curCSV an Index " + i + " ist " + curCSV.getString(i));
-                }
-                csvWrite.writeNext(arrStr);
-            }
-            csvWrite.close();
-            curCSV.close();
-            Log.d(LOG_TAG, "Answers exported to answers.csv");
-        } catch (Exception sqlEx) {
-            Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
-        }
-
-
-
-    }
-
-    private boolean isStoragePermissionGranted() {
-
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-            Log.v(LOG_TAG, "Permission is granted");
-            new ExportCSV(SurveyRoomDatabase.getDatabase(getContext())).execute();
-            return true;
-        } else {
-
-            Log.v(LOG_TAG, "Permission is revoked");
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            return false;
-        }
-    }
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        Log.d(LOG_TAG, "onRequestPermissionResults was reached");
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.v(LOG_TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
-            //resume tasks needing this permission
-            ExportCSV export = new ExportCSV(SurveyRoomDatabase.getDatabase(getContext()));
-            export.execute();
-        }
-        return;
-    }
 
 
 }
